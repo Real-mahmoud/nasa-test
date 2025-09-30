@@ -1,0 +1,159 @@
+// Get the button
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+  // Show button when user scrolls down 200px
+  window.onscroll = function () {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      scrollTopBtn.style.display = "block";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  };
+
+  // Scroll to top smoothly when clicked
+  scrollTopBtn.onclick = function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+const menuToggle = document.querySelector(".menu-toggle");
+const nav = document.querySelector("nav");
+
+menuToggle.addEventListener("click", () => {
+nav.classList.toggle("show");
+});
+
+
+document.getElementById("dataForm").addEventListener("submit", async function(e){
+  e.preventDefault(); // stop reload ✅
+
+  const location = document.getElementById("location").value;
+  const date = document.getElementById("date").value;
+  const parameter = document.getElementById("parameter").value;
+  const resultBox = document.getElementById("result");
+
+  resultBox.innerHTML = "Fetching data...";
+
+  try {
+    // Step 1: Geocode
+    const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
+    const geoData = await geoRes.json();
+    if(!geoData.length) throw new Error("Location not found");
+    const lat = geoData[0].lat;
+    const lon = geoData[0].lon;
+
+    // Step 2: NASA POWER
+    const nasaRes = await fetch(`https://power.larc.nasa.gov/api/temporal/daily/point?parameters=${parameter}&community=RE&longitude=${lon}&latitude=${lat}&start=${date.replace(/-/g,"")}&end=${date.replace(/-/g,"")}&format=JSON`);
+    const nasaData = await nasaRes.json();
+
+    const value = nasaData.properties.parameter[parameter][date.replace(/-/g,"")];
+    resultBox.innerHTML = `<strong>${parameter}</strong> on ${date} at ${location}: <br> <span style="color:#9c5ad1">${value}</span>`;
+    
+  } catch(err) {
+    resultBox.innerHTML = "Error: " + err.message;
+  }
+});
+
+
+// 🌍 Initialize Leaflet Map
+const map = L.map('map').setView([30, 31], 5); // default Egypt
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap'
+}).addTo(map);
+let marker;
+
+// 📊 Initialize Chart.js
+const ctx = document.getElementById('vizChart').getContext('2d');
+let chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: [],
+    datasets: [{
+      label: 'Rainfall Probability',
+      data: [],
+      borderColor: '#9c5ad1',
+      backgroundColor: 'rgba(156,90,209,0.3)',
+      fill: true,
+      tension: 0.4
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      x: { title: { display: true, text: 'Date' }},
+      y: { title: { display: true, text: 'Value' }}
+    }
+  }
+});
+
+// 🔄 Function to update map & chart
+function updateVisualization(lat, lon, chartType, labels, data) {
+  // Map update
+  map.setView([lat, lon], 7);
+  if(marker) marker.remove();
+  marker = L.marker([lat, lon]).addTo(map);
+
+  // Chart update
+  chart.data.labels = labels;
+  chart.data.datasets[0].data = data;
+  chart.data.datasets[0].label =
+    chartType === "rain" ? "Rainfall Probability" :
+    chartType === "temp" ? "Temperature Variation" :
+    "Trends Over Years";
+  chart.update();
+}
+
+// Tab switching
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    // Example fake data
+    const type = btn.dataset.chart;
+    if(type === "rain"){
+      updateVisualization(30,31,"rain",["Mon","Tue","Wed"],[20,60,40]);
+    } else if(type === "temp"){
+      updateVisualization(30,31,"temp",["Morning","Noon","Night"],[18,30,22]);
+    } else {
+      updateVisualization(30,31,"trend",["2021","2022","2023"],[25,27,26]);
+    }
+  });
+});
+
+
+
+// Count-up animation
+const counters = document.querySelectorAll('.number');
+
+const animateNumbers = () => {
+  counters.forEach(counter => {
+    counter.innerText = "0";
+    const updateCounter = () => {
+      const target = +counter.getAttribute("data-target");
+      const current = +counter.innerText;
+      const increment = target / 100; // speed
+      if(current < target){
+        counter.innerText = `${Math.ceil(current + increment)}`;
+        setTimeout(updateCounter, 25);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    updateCounter();
+  });
+};
+
+// Trigger when section is visible
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      animateNumbers();
+      observer.disconnect(); // run once
+    }
+  });
+}, { threshold: 0.5 });
+
+observer.observe(document.querySelector("#insights"));

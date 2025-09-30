@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- AOS  -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- leaflet links  -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- font awesome cdn  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- maptiler geocoding for search  -->
+    <script src="https://cdn.maptiler.com/maptiler-geocoding-control/v2.1.7/leaflet.umd.js"></script>
+    <link href="https://cdn.maptiler.com/maptiler-geocoding-control/v2.1.7/style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- Scroll to Top Button -->
+<button id="scrollTopBtn" title="Go to top">↑</button>
+
+    <img class="img-gradiant" src="images/gradient.png" alt="">
+    <div class="layer-blur"></div>
+    
+    <div class="hero">
+        
+        <div class="hcontainer">
+            <header>
+                <h1 data-aos="fade-down" data-aos-duration="1500" class="logo">RABELS</h1>  
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav>
+                    <a data-aos="fade-down" data-aos-duration="500" href="#about">ABOUT</a>
+                    <a data-aos="fade-down" data-aos-duration="1000" href="#steps">STEPS</a>
+                    <a data-aos="fade-down" data-aos-duration="1500" href="#visualization">VISUALIZATION</a>
+                    <a data-aos="fade-down" data-aos-duration="2000" href="#insights">INSIGHTS</a>
+                </nav>
+            </header>
+
+            <main>
+                <div data-aos="fade-right"
+                    data-aos-offset="300"
+                    data-aos-easing="ease-in-sine" data-aos-duration="2000" class="content">
+                    <div class="tag-box">
+                        <div class="tag">INTRODUCING &wedbar;</div>
+                    </div>
+                    <h1>Will it Rain <br> on My Parade?</h1>
+                    <p class="description">Discover how climate data helps predict the chance of rain on important days.</p>
+                    <div class="buttons">
+                        <a href="#" class="btn-get-started">DOCUMENTATION </a>
+                        <a href="#climate" class="btn-signing-main">Getstarted </a>
+                    </div>
+                </div>
+            </main>
+            <spline-viewer data-aos="fade-left"
+                data-aos-anchor="#example-anchor"
+                data-aos-offset="500"
+                data-aos-duration="2000" class="robot-3d" cancelable="false" url="https://prod.spline.design/XBH6JKw2eEtIngaX/scene.splinecode"></spline-viewer>
+        </div>
+    </div>
+
+        <!-- About the Challenge -->
+    <section class="about-challenge" id="about">
+    <div class="container">
+        <h2 data-aos="zoom-in" data-aos-duration="1000">About the Challenge</h2>
+        <p data-aos="fade-up" data-aos-duration="1500">
+        The <strong>“Will it Rain on My Parade?”</strong> challenge is about using 
+        NASA climate and weather data to explore how rainfall and other 
+        environmental factors can affect important outdoor events.  
+        </p>
+
+        <p data-aos="fade-up" data-aos-duration="2000">
+        In this project, you’ll discover how satellite-based climate 
+        datasets can be used to predict conditions such as temperature, 
+        precipitation, and wind — helping people plan their parades, 
+        celebrations, and activities with more confidence.  
+        </p>
+
+        <p data-aos="fade-up" data-aos-duration="2500">
+        Our goal is to make this information accessible to everyone by 
+        combining <strong>interactive maps</strong>, <strong>search tools</strong>, and 
+        <strong>data visualizations</strong> in one platform.
+        </p>
+    </div>
+    </section>
+
+
+    <!-- How It Works -->
+<section class="how-it-works" id="steps">
+  <div class="container">
+    <h2 data-aos="zoom-in" data-aos-duration="1000">How It Works</h2>
+    
+    <div class="steps">
+      <div class="step" data-aos="fade-up" data-aos-duration="1500">
+        <i class="fas fa-search-location"></i>
+        <h3>Step 1</h3>
+        <p>Enter a <strong>location</strong> and a <strong>date</strong> into the search form.</p>
+      </div>
+
+      <div class="step" data-aos="fade-up" data-aos-duration="2000">
+        <i class="fas fa-satellite"></i>
+        <h3>Step 2</h3>
+        <p>We fetch real climate data from <strong>NASA’s POWER API</strong>.</p>
+      </div>
+
+      <div class="step" data-aos="fade-up" data-aos-duration="2500">
+        <i class="fas fa-chart-line"></i>
+        <h3>Step 3</h3>
+        <p>Results are shown on an <strong>interactive map</strong> with visual charts.</p>
+      </div>
+
+      <div class="step" data-aos="fade-up" data-aos-duration="3000">
+        <i class="fas fa-umbrella"></i>
+        <h3>Step 4</h3>
+        <p>You can check if it might <strong>rain on your parade</strong> or not!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="data-input " id="climate">
+  <div class="card">
+    <h2>Get Climate Data</h2>
+    <form id="dataForm">
+        <input type="text" id="location" placeholder="Enter location..." required />
+        <input type="date" id="date" required />
+        <select id="parameter" required>
+            <option value="T2M">Temperature</option>
+            <option value="PRECTOTCORR">Rainfall</option>
+            <option value="WS2M">Wind</option>
+        </select>
+        <button type="submit">Fetch Data</button>
+        </form>
+
+    <div id="result"></div>
+  </div>
+</section>
+
+<section id="visualization" class="visualization">
+  <h2>5. Visualization</h2>
+  <div class="viz-container">
+    <!-- Map -->
+    <div id="map"></div>
+
+    <!-- Chart -->
+    <div class="chart-box">
+      <div class="chart-tabs">
+        <button class="tab-btn active" data-chart="rain">Rainfall Probability</button>
+        <button class="tab-btn" data-chart="temp">Temperature Variation</button>
+        <button class="tab-btn" data-chart="trend">Trends Over Years</button>
+      </div>
+      <canvas id="vizChart"></canvas>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section id="insights" class="insights">
+  <h2>6. Insights & Results</h2>
+  <div class="insights-container">
+    
+    <!-- Rainfall Insight -->
+    <div class="insight-card">
+      <i class="fas fa-cloud-rain"></i>
+      <div class="number" data-target="65">0</div>
+      <p>Chance of Rain (%)</p>
+    </div>
+    
+    <!-- Temperature Insight -->
+    <div class="insight-card">
+      <i class="fas fa-thermometer-half"></i>
+      <div class="number" data-target="25">0</div>
+      <p>Avg Temperature (°C)</p>
+    </div>
+    
+    <!-- Wind Insight -->
+    <div class="insight-card">
+      <i class="fas fa-wind"></i>
+      <div class="number" data-target="12">0</div>
+      <p>Wind Speed (m/s)</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 7. Why It Matters -->
+<section id="why-it-matters" class="why-it-matters">
+  <div class="why-container">
+    
+    <!-- Left: Image -->
+    <div class="why-image">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.x-FqDP_ktZ_LVwrDDjnWNQHaEO?rs=1&pid=ImgDetMain&o=7&rm=3"
+           alt="Climate Change">
+    </div>
+
+    <!-- Right: Text -->
+    <div class="why-text">
+      <h2>Why It Matters</h2>
+      <p>
+        Understanding climate data helps us prepare for the future. 
+        By analyzing rainfall, temperature, and weather patterns, 
+        we can make better decisions about events, agriculture, and safety. 
+      </p>
+      <p>
+        NASA’s climate datasets are not just numbers—they are insights 
+        that help communities adapt and thrive in a changing world. 
+      </p>
+      <a href="#">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    
+    <!-- Links -->
+    <div class="footer-links">
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="https://github.com/your-repo" target="_blank">GitHub Repo</a></li>
+        <li><a href="https://power.larc.nasa.gov/" target="_blank">NASA POWER API</a></li>
+        <li><a href="https://climateknowledgeportal.worldbank.org/" target="_blank">World Bank Climate Data</a></li>
+      </ul>
+    </div>
+
+    <!-- Credits -->
+    <div class="footer-credits">
+      <p>&copy; 2025 | Built for <span>NASA Space Apps Challenge</span>.</p>
+    </div>
+  </div>
+</footer>
+
+    
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.71/build/spline-viewer.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    
+  <script>
+    AOS.init();
+  </script>
+  <script src="main.js"></script>
+</body>
+</html>
