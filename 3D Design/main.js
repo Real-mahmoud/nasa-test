@@ -18,6 +18,7 @@
     });
   };
 
+// add the toggle menu when responsive
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector("nav");
 
@@ -57,14 +58,14 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
 });
 
 
-// 🌍 Initialize Leaflet Map
+// Initialize Leaflet Map
 const map = L.map('map').setView([30, 31], 5); // default Egypt
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap'
 }).addTo(map);
 let marker;
 
-// 📊 Initialize Chart.js
+// Initialize Chart.js
 const ctx = document.getElementById('vizChart').getContext('2d');
 let chart = new Chart(ctx, {
   type: 'line',
@@ -122,8 +123,6 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
     }
   });
 });
-
-
 
 // Count-up animation
 const counters = document.querySelectorAll('.number');

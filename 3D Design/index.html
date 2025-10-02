@@ -14,7 +14,7 @@
     <!-- maptiler geocoding for search  -->
     <script src="https://cdn.maptiler.com/maptiler-geocoding-control/v2.1.7/leaflet.umd.js"></script>
     <link href="https://cdn.maptiler.com/maptiler-geocoding-control/v2.1.7/style.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- chart  -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
      
     <title>Document</title>
@@ -27,68 +27,69 @@
     <img class="img-gradiant" src="images/gradient.png" alt="">
     <div class="layer-blur"></div>
     
-    <div class="hero">
-        
-        <div class="hcontainer">
-            <header>
-                <h1 data-aos="fade-down" data-aos-duration="1500" class="logo">RABELS</h1>  
-                <button class="menu-toggle" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav>
-                    <a data-aos="fade-down" data-aos-duration="500" href="#about">ABOUT</a>
-                    <a data-aos="fade-down" data-aos-duration="1000" href="#steps">STEPS</a>
-                    <a data-aos="fade-down" data-aos-duration="1500" href="#visualization">VISUALIZATION</a>
-                    <a data-aos="fade-down" data-aos-duration="2000" href="#insights">INSIGHTS</a>
-                </nav>
-            </header>
-
-            <main>
-                <div data-aos="fade-right"
-                    data-aos-offset="300"
-                    data-aos-easing="ease-in-sine" data-aos-duration="2000" class="content">
-                    <div class="tag-box">
-                        <div class="tag">INTRODUCING &wedbar;</div>
-                    </div>
-                    <h1>Will it Rain <br> on My Parade?</h1>
-                    <p class="description">Discover how climate data helps predict the chance of rain on important days.</p>
-                    <div class="buttons">
-                        <a href="#" class="btn-get-started">DOCUMENTATION </a>
-                        <a href="#climate" class="btn-signing-main">Getstarted </a>
-                    </div>
-                </div>
-            </main>
-            <spline-viewer data-aos="fade-left"
-                data-aos-anchor="#example-anchor"
-                data-aos-offset="500"
-                data-aos-duration="2000" class="robot-3d" cancelable="false" url="https://prod.spline.design/XBH6JKw2eEtIngaX/scene.splinecode"></spline-viewer>
+<div class="hero">
+  
+  <div class="hcontainer">
+      <header>
+        <div data-aos="fade-down" data-aos-duration="1500" class="logo">
+          <img src="images/logo.png" id="logo-icon" alt="">
+          <h1>RABELS</h1>  
         </div>
-    </div>
+          <button class="menu-toggle" aria-label="Toggle menu">
+              <i class="fas fa-bars"></i>
+          </button>
+          <nav>
+              <a data-aos="fade-down" data-aos-duration="500" href="#about">ABOUT</a>
+              <a data-aos="fade-down" data-aos-duration="1000" href="#steps">STEPS</a>
+              <a data-aos="fade-down" data-aos-duration="1500" href="#visualization">VISUALIZATION</a>
+              <a data-aos="fade-down" data-aos-duration="2000" href="#insights">INSIGHTS</a>
+          </nav>
+      </header>
 
-        <!-- About the Challenge -->
-    <section class="about-challenge" id="about">
-    <div class="container">
-        <h2 data-aos="zoom-in" data-aos-duration="1000">About the Challenge</h2>
-        <p data-aos="fade-up" data-aos-duration="1500">
-        The <strong>“Will it Rain on My Parade?”</strong> challenge is about using 
-        NASA climate and weather data to explore how rainfall and other 
-        environmental factors can affect important outdoor events.  
-        </p>
+      <main>
+          <img id="earth-3d" src="images/earth.png" alt="">
+  
+          <div data-aos="fade-right"
+              data-aos-offset="300"
+              data-aos-easing="ease-in-sine" data-aos-duration="2000" class="content">
+              <div class="tag-box">
+                  <div class="tag">INTRODUCING &wedbar;</div>
+              </div>
+              <h1>Will it Rain <br> on My Parade?</h1>
+              <p class="description">Discover how climate data helps predict the chance of rain on important days.</p>
+              <div class="buttons">
+                  <a href="#" class="btn-get-started">DOCUMENTATION </a>
+                  <a href="#climate" class="btn-signing-main">Getstarted </a>
+              </div>
+          </div>
+      </main>
+  </div>
+</div>
 
-        <p data-aos="fade-up" data-aos-duration="2000">
-        In this project, you’ll discover how satellite-based climate 
-        datasets can be used to predict conditions such as temperature, 
-        precipitation, and wind — helping people plan their parades, 
-        celebrations, and activities with more confidence.  
-        </p>
+    <!-- About the Challenge -->
+<section class="about-challenge" id="about">
+<div class="container">
+    <h2 data-aos="zoom-in" data-aos-duration="1000">About the Challenge</h2>
+    <p data-aos="fade-up" data-aos-duration="1500">
+    The <strong>“Will it Rain on My Parade?”</strong> challenge is about using 
+    NASA climate and weather data to explore how rainfall and other 
+    environmental factors can affect important outdoor events.  
+    </p>
 
-        <p data-aos="fade-up" data-aos-duration="2500">
-        Our goal is to make this information accessible to everyone by 
-        combining <strong>interactive maps</strong>, <strong>search tools</strong>, and 
-        <strong>data visualizations</strong> in one platform.
-        </p>
-    </div>
-    </section>
+    <p data-aos="fade-up" data-aos-duration="2000">
+    In this project, you’ll discover how satellite-based climate 
+    datasets can be used to predict conditions such as temperature, 
+    precipitation, and wind — helping people plan their parades, 
+    celebrations, and activities with more confidence.  
+    </p>
+
+    <p data-aos="fade-up" data-aos-duration="2500">
+    Our goal is to make this information accessible to everyone by 
+    combining <strong>interactive maps</strong>, <strong>search tools</strong>, and 
+    <strong>data visualizations</strong> in one platform.
+    </p>
+</div>
+</section>
 
 
     <!-- How It Works -->
@@ -143,7 +144,7 @@
 </section>
 
 <section id="visualization" class="visualization">
-  <h2>5. Visualization</h2>
+  <h2>Visualization</h2>
   <div class="viz-container">
     <!-- Map -->
     <div id="map"></div>
@@ -160,11 +161,8 @@
   </div>
 </section>
 
-
-
-
 <section id="insights" class="insights">
-  <h2>6. Insights & Results</h2>
+  <h2>Insights & Results</h2>
   <div class="insights-container">
     
     <!-- Rainfall Insight -->
@@ -230,6 +228,16 @@
         <li><a href="https://github.com/your-repo" target="_blank">GitHub Repo</a></li>
         <li><a href="https://power.larc.nasa.gov/" target="_blank">NASA POWER API</a></li>
         <li><a href="https://climateknowledgeportal.worldbank.org/" target="_blank">World Bank Climate Data</a></li>
+      </ul>
+    </div>
+    <div class="team-members">
+      <h3>Team Member</h3>
+      <ul>
+        <li><a href="#" target="_blank">Mahmoud Khaled</a></li>
+        <li><a href="#" target="_blank">Mohamed Mostafa</a></li>
+        <li><a href="#" target="_blank">Hamed Islam</a></li>
+        <li><a href="#" target="_blank">Ahmed Khaled</a></li>
+        <li><a href="#" target="_blank">Ahmed Diab</a></li>
       </ul>
     </div>
 
