@@ -307,7 +307,7 @@ main .content h1 {
     }
     main .content {
         margin-top: -2rem;
-        margin-left: 3rem;
+        margin-left: 1.5rem;
         max-width: 30rem;
     }
     main .content h1 {
@@ -758,4 +758,5 @@ main .content h1 {
 .insight-card p {
   font-size: 1rem;
   color: #ccc;
+
 }
