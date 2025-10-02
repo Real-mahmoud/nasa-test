@@ -107,7 +107,9 @@ header {
     align-items: center;
     padding: 1rem 5rem;
     position: relative;
+  
 }
+
 header::after {
   content: "";
   position: absolute;
@@ -696,7 +698,7 @@ main .content h1 {
 @media (max-width: 768px) {
   .why-container {
     flex-direction: column;
-    text-align: center;
+    text-align:center;
   }
 
   .footer-container {
@@ -704,10 +706,6 @@ main .content h1 {
     text-align: center;
   }
 }
-
-
-
-
 
 
 
