@@ -28,7 +28,7 @@ nav.classList.toggle("show");
 
 
 document.getElementById("dataForm").addEventListener("submit", async function(e){
-  e.preventDefault(); // stop reload ✅
+  e.preventDefault();
 
   const location = document.getElementById("location").value;
   const date = document.getElementById("date").value;
@@ -38,16 +38,28 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
   resultBox.innerHTML = "Fetching data...";
 
   try {
-    // Step 1: Geocode
+    // Geocode
     const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
     const geoData = await geoRes.json();
+    console.log(geoRes);
+    console.log(geoData);
+    
     if(!geoData.length) throw new Error("Location not found");
     const lat = geoData[0].lat;
     const lon = geoData[0].lon;
 
-    // Step 2: NASA POWER
+    // NASA POWER
     const nasaRes = await fetch(`https://power.larc.nasa.gov/api/temporal/daily/point?parameters=${parameter}&community=RE&longitude=${lon}&latitude=${lat}&start=${date.replace(/-/g,"")}&end=${date.replace(/-/g,"")}&format=JSON`);
     const nasaData = await nasaRes.json();
+    console.log(nasaRes);
+    console.log(nasaData);
+    let marker;
+    if (marker) {
+      marker.remove()
+    }
+    marker = L.marker([lat, lon]).addTo(map);
+    map.setView([lat, lon],13)
+
 
     const value = nasaData.properties.parameter[parameter][date.replace(/-/g,"")];
     resultBox.innerHTML = `<strong>${parameter}</strong> on ${date} at ${location}: <br> <span style="color:#9c5ad1">${value}</span>`;
@@ -89,7 +101,7 @@ let chart = new Chart(ctx, {
   }
 });
 
-// 🔄 Function to update map & chart
+// Function to update map & chart
 function updateVisualization(lat, lon, chartType, labels, data) {
   // Map update
   map.setView([lat, lon], 7);

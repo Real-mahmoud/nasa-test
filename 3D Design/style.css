@@ -72,7 +72,7 @@ body {
     position: absolute;
     top: 20%;
     right: 0;
-    box-shadow: 0 0 700px 15px white;
+    box-shadow: 0 0 700px 15px #6815b5;
     rotate: -30deg;
     z-index: -1;
 }
@@ -263,10 +263,11 @@ main .content h1 {
     font-weight: 600px;
     letter-spacing: .1em;
     transition: background-color .2s ease;
-    background-color: #1a1a1a;
+    background-color: #6600c5;
+    color: white;
 }
 .btn-get-started:hover{
-    background-color: #3430309c;
+    background-color: #5300a0;
 }
 .btn-signing-main {
     text-decoration: none;
@@ -306,7 +307,7 @@ main .content h1 {
     }
     main .content {
         margin-top: -2rem;
-        margin-left: 10px;
+        margin-left: 3rem;
         max-width: 30rem;
     }
     main .content h1 {
@@ -500,6 +501,7 @@ main .content h1 {
   padding: 80px 20px;
   color: #e7e7e7;
   text-align: center;
+  position: relative;
 }
 
 .visualization h2 {
@@ -514,6 +516,7 @@ main .content h1 {
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto; /* center on large screens */
+  
 }
 
 #map {
@@ -580,6 +583,7 @@ main .content h1 {
 .why-it-matters {
   color: #fff;
   padding: 80px 20px;
+  position: relative;
 }
 
 .why-container {
@@ -651,6 +655,7 @@ main .content h1 {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
+  align-items: flex-start;
   text-align: center;
 }
 
@@ -658,10 +663,12 @@ main .content h1 {
   color: #fff;
   margin-bottom: 15px;
   font-size: 1.2rem;
+  text-align: left;
 }
 
 .footer ul {
   list-style: none;
+  text-align: left;
 }
 
 .footer li {
