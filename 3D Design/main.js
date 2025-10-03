@@ -1,22 +1,15 @@
 // Get the button
-  const scrollTopBtn = document.getElementById("scrollTopBtn");
+const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-  // Show button when user scrolls down 200px
-  window.onscroll = function () {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-      scrollTopBtn.style.display = "block";
-    } else {
-      scrollTopBtn.style.display = "none";
-    }
-  };
+if (scrollTopBtn) {
+  window.addEventListener('scroll', () => {
+    scrollTopBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
+  });
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
 
-  // Scroll to top smoothly when clicked
-  scrollTopBtn.onclick = function () {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  };
 
 // add the toggle menu when responsive
 const menuToggle = document.querySelector(".menu-toggle");
@@ -25,7 +18,6 @@ const nav = document.querySelector("nav");
 menuToggle.addEventListener("click", () => {
 nav.classList.toggle("show");
 });
-
 
 document.getElementById("dataForm").addEventListener("submit", async function(e){
   e.preventDefault();
@@ -72,8 +64,8 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
 
 // Initialize Leaflet Map
 const map = L.map('map').setView([30, 31], 5); // default Egypt
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap'
+L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=5ss5yFCq4GDeUWDijeEi', {
+  attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
 }).addTo(map);
 let marker;
 
@@ -118,7 +110,7 @@ function updateVisualization(lat, lon, chartType, labels, data) {
   chart.update();
 }
 
-// Tab switching
+// Tab switching 
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
