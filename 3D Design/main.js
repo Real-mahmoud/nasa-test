@@ -22,6 +22,8 @@ nav.classList.toggle("show");
 // insights counters
 const counters = document.querySelectorAll('.number');
 
+
+
 document.getElementById("dataForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
