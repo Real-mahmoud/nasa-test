@@ -91,7 +91,7 @@ body {
   height: 100%;
   left: 0;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.55);
 }
 .hero .hcontainer {
     width: 100%;
@@ -107,7 +107,6 @@ header {
     align-items: center;
     padding: 1rem 5rem;
     position: relative;
-  
 }
 
 header::after {
@@ -462,12 +461,38 @@ main .content h1 {
   text-align: center;
   color: #e7e7e7;
 }
-.card {
+.input-container {
+  display: flex;
+  align-items: center;
+}
+.input-container .hints {
+  flex: 1;
   background: #1c1c1c;
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 0 20px rgba(127,66,167,0.4);
   max-width: 500px;
+  margin: auto;
+  line-height: 2;
+  text-align: left;
+}
+.input-container .hints  h2{
+  text-align: center;
+}
+.input-container .hints  h4 {
+  margin-top: 30px;
+}
+.input-container .hints strong{
+  color: #6600c5;
+}
+
+.input-container .card {
+  background: #1c1c1c;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(127,66,167,0.4);
+  max-width: 500px;
+  flex: 1;
   margin: auto;
 }
 .card input, .card select, .card button {
@@ -498,6 +523,15 @@ main .content h1 {
   color: #ccc;
 }
 
+@media (max-width:1200px) {
+  .input-container {
+    flex-direction: column;
+  }
+  .input-container .card {
+   width: 100%;
+    margin-bottom: 60px;
+  }
+}
 
 .visualization {
   padding: 80px 20px;
@@ -602,7 +636,7 @@ main .content h1 {
 }
 
 .why-image img {
-  width: 100%;
+  width: 85%;
   border-radius: 20px;
   box-shadow: 0 0 20px rgba(0,0,0,0.6);
   transition: transform 0.5s ease;

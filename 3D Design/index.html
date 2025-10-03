@@ -57,8 +57,8 @@
               <h1>Will it Rain <br> on My Parade?</h1>
               <p class="description">Discover how climate data helps predict the chance of rain on important days.</p>
               <div class="buttons">
-                  <a href="#" class="btn-get-started">DOCUMENTATION </a>
-                  <a href="#climate" class="btn-signing-main">Getstarted </a>
+                  <a href="#" class="btn-get-started">Download Data </a>
+                  <a href="#climate" class="btn-signing-main">Get Started </a>
               </div>
           </div>
       </main>
@@ -125,20 +125,28 @@
 </section>
 
 <section class="data-input " id="climate">
-  <div class="card">
-    <h2>Get Climate Data</h2>
-    <form id="dataForm">
-        <input type="text" id="location" placeholder="Enter location..." required />
-        <input type="date" id="date" required />
-        <select id="parameter" required>
-            <option value="T2M">Temperature</option>
-            <option value="PRECTOTCORR">Rainfall</option>
-            <option value="WS2M">Wind</option>
-        </select>
-        <button type="submit">Fetch Data</button>
-        </form>
+  <div class="input-container">
+    <div class="card">
+      <h2>Get Climate Data</h2>
+      <form id="dataForm">
+          <input type="text" id="location" placeholder="Enter location..." required />
+          <input type="date" id="date" required />
+          <select id="parameter" required>
+              <option value="T2M">Temperature</option>
+              <option value="PRECTOTCORR">Rainfall</option>
+              <option value="WS2M">Wind</option>
+          </select>
+          <button type="submit">Fetch Data</button>
+          </form>
 
-    <div id="result"></div>
+      <div id="result"></div>
+    </div>
+    <div class="hints">
+      <h2><strong>HINTS</strong></h2>
+      <h4><strong>T2M</strong> &rArr; Temperature at 2 meters 🌡️</h4>
+      <h4><strong>WS2M</strong> &rArr; Wind Speed at 2 meters 💨</h4>
+      <h4><strong>PRECTOTCORR</strong> &rArr; Corrected Total Precipitation 🌧️</h4>
+    </div>
   </div>
 </section>
 
@@ -170,21 +178,21 @@
     <!-- Rainfall Insight -->
     <div class="insight-card">
       <i class="fas fa-cloud-rain"></i>
-      <div class="number" data-target="65">0</div>
+      <div class="number" >0</div>
       <p>Chance of Rain (%)</p>
     </div>
     
     <!-- Temperature Insight -->
     <div class="insight-card">
       <i class="fas fa-thermometer-half"></i>
-      <div class="number" data-target="25">0</div>
+      <div class="number" >0</div>
       <p>Avg Temperature (°C)</p>
     </div>
     
     <!-- Wind Insight -->
     <div class="insight-card">
       <i class="fas fa-wind"></i>
-      <div class="number" data-target="12">0</div>
+      <div class="number" >0</div>
       <p>Wind Speed (m/s)</p>
     </div>
 
@@ -200,7 +208,7 @@
     
     <!-- Left: Image -->
     <div class="why-image">
-      <img src="images/why.jbg.webp"
+      <img src="images/whyitmatter.png"
            alt="Climate Change">
     </div>
 
@@ -216,7 +224,7 @@
         NASA’s climate datasets are not just numbers—they are insights 
         that help communities adapt and thrive in a changing world. 
       </p>
-      <a href="#">Learn More</a>
+      <a href="https://power.larc.nasa.gov/" target="_blank">Learn More</a>
     </div>
   </div>
 </section>
@@ -237,6 +245,17 @@
         
       </ul>
     </div>
+    <div class="tools">
+      <h3>Tools</h3>
+      <ul>
+        <li><a href="https://leafletjs.com/" target="_blank">leaflet.js</a></li>
+        <li><a href="https://www.maptiler.com/" target="_blank">maptiler</a></li>
+        <li><a href="https://www.chartjs.org/" target="_blank">chart.js</a></li>
+        <li><a href="https://fontawesome.com/" target="_blank">Font Awesome</a></li>
+        <li><a href="https://michalsnik.github.io/aos/" target="_blank">AOS</a></li>
+      </ul>
+    </div>
+    
     <div class="team-members">
       <h3>Team Members</h3>
       <ul>
@@ -247,18 +266,7 @@
         <li><a href="#" target="_blank">Ahmed Diab</a></li>
       </ul>
     </div>
-    <div class="tools">
-      <h3>Tools</h3>
-      <ul>
-        <li><a href="https://leafletjs.com/" target="_blank">leaflet.js</a></li>
-        <li><a href="https://www.maptiler.com/" target="_blank">maptiler</a></li>
-        <li><a href="https://www.chartjs.org/" target="_blank">chart.js</a></li>
-        <li><a href="https://fontawesome.com/" target="_blank">Font Awesome</a></li>
-        <li><a href="https://michalsnik.github.io/aos/" target="_blank">AOS</a></li>
-
-      </ul>
-    </div>
-
+    
     <!-- Credits -->
     <div class="footer-credits">
       <p>&copy; Sacred Repels | Built for <span>NASA Space Apps Challenge</span> 2025.</p>

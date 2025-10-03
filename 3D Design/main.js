@@ -19,6 +19,9 @@ menuToggle.addEventListener("click", () => {
 nav.classList.toggle("show");
 });
 
+// insights counters
+const counters = document.querySelectorAll('.number');
+
 document.getElementById("dataForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
@@ -41,26 +44,52 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
     const lon = geoData[0].lon;
 
     // NASA POWER
-    const nasaRes = await fetch(`https://power.larc.nasa.gov/api/temporal/daily/point?parameters=${parameter}&community=RE&longitude=${lon}&latitude=${lat}&start=${date.replace(/-/g,"")}&end=${date.replace(/-/g,"")}&format=JSON`);
+    const nasaRes = await fetch(`https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CWS2M%2CPRECTOTCORR&community=RE&longitude=${lon}&latitude=${lat}&start=${date.replace(/-/g,"")}&end=${date.replace(/-/g,"")}&format=JSON`);
     const nasaData = await nasaRes.json();
     console.log(nasaRes);
     console.log(nasaData);
-    let marker;
-    if (marker) {
-      marker.remove()
-    }
-    marker = L.marker([lat, lon]).addTo(map);
-    map.setView([lat, lon],13)
-
 
     const value = nasaData.properties.parameter[parameter][date.replace(/-/g,"")];
 
-     const icon = parameter.toLowerCase().includes("rain") ? "🌧️" :
-      parameter.toLowerCase().includes("temp") ? "☀️" : "📊";
+    // change rain insight 
+    let PRECTOTCORR=nasaData.properties.parameter["PRECTOTCORR"][date.replace(/-/g,"")] + "";
+    let max=40;
+    counters[0].setAttribute("data-target",Math.ceil((PRECTOTCORR / max) * 100));   
 
-    resultBox.innerHTML = `<strong>${parameter}</strong> on ${date} at ${location}: <br> <span style="color:#9c5ad1">${value} ${icon}</span>`;
+    // avg temp insight 
+    counters[1].setAttribute("data-target",nasaData.properties.parameter["T2M"][date.replace(/-/g,"")] + "");
+    // wind insight 
+    counters[2].setAttribute("data-target",nasaData.properties.parameter["WS2M"][date.replace(/-/g,"")] + "");
+
+    // to make it count up from 0 to value
+    animateNumbers()
+
+    let unit=nasaData.parameters[parameter].units;
+    console.log(unit);
+    
+    const icon = parameter.includes("WS2M") ? "📊" :
+    parameter.includes("T2M") ? "☀️" : "🌧️";
+    
+    resultBox.innerHTML = `<strong>${parameter}</strong> on ${date} at ${location}: <br> <span style="color:#9c5ad1">${value} ${unit} ${icon}</span>`;
     
     updateVisualization(lat, lon, parameter, [date], [value]);
+   
+    // Tab chart switching 
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const type = btn.dataset.chart;
+        if(type === "rain"){
+          updateVisualization(lat, lon,"rain",["min",date,"max"],[0,Math.ceil((PRECTOTCORR / max) * 100),max]);
+        } else if(type === "temp"){
+          updateVisualization(lat, lon,"temp",["Morning","Noon","Night"],[18,30,22]);
+        } else {
+          updateVisualization(lat, lon,"trend",["2021","2022","2023"],[25,27,26]);
+        }
+      });
+    });
 
   } catch(err) {
     resultBox.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
@@ -78,14 +107,14 @@ let marker;
 // Initialize Chart.js
 const ctx = document.getElementById('vizChart').getContext('2d');
 let chart = new Chart(ctx, {
-  type: 'line',
+  type: 'bar',
   data: {
     labels: [],
     datasets: [{
       label: 'Rainfall Probability',
       data: [],
       borderColor: '#9c5ad1',
-      backgroundColor: 'rgba(156,90,209,0.3)',
+      backgroundColor: ['rgba(156,90,209,0.3)' ,'rgba(156,90,209,0.3)','rgba(169, 43, 43, 1)'],
       fill: true,
       tension: 0.4
     }]
@@ -102,7 +131,7 @@ let chart = new Chart(ctx, {
 // Function to update map & chart
 function updateVisualization(lat, lon, chartType, labels, data) {
   // Map update
-  map.setView([lat, lon], 7);
+  map.setView([lat, lon], 13);
   if(marker) marker.remove();
   marker = L.marker([lat, lon]).addTo(map);
 
@@ -110,36 +139,12 @@ function updateVisualization(lat, lon, chartType, labels, data) {
   chart.data.labels = labels;
   chart.data.datasets[0].data = data;
   chart.data.datasets[0].label =
-  /*  chartType === "rain" ? "Rainfall Probability" :
-    chartType === "temp" ? "Temperature Variation" :
-    "Trends Over Years";
-  chart.update();*/
   chartType.toLowerCase().includes("rain") ? "Rainfall Probability" :
       chartType.toLowerCase().includes("temp") ? "Temperature Variation" :
         "Trends Over Years";
   chart.update();
 }
 
-// Tab switching 
-document.querySelectorAll(".tab-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    // Example fake data
-    const type = btn.dataset.chart;
-    if(type === "rain"){
-      updateVisualization(30,31,"rain",["Mon","Tue","Wed"],[20,60,40]);
-    } else if(type === "temp"){
-      updateVisualization(30,31,"temp",["Morning","Noon","Night"],[18,30,22]);
-    } else {
-      updateVisualization(30,31,"trend",["2021","2022","2023"],[25,27,26]);
-    }
-  });
-});
-
-// Count-up animation
-const counters = document.querySelectorAll('.number');
 
 const animateNumbers = () => {
   counters.forEach(counter => {
