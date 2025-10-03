@@ -660,17 +660,21 @@ main .content h1 {
   align-items: flex-start;
   text-align: center;
 }
+.footer-container div:not(div:last-child) {
+  width: 190px;
+  margin-bottom: 30px;
+  text-align: justify;
+  margin-left: 40px;
 
+}
 .footer h3 {
   color: #fff;
   margin-bottom: 15px;
   font-size: 1.2rem;
-  text-align: left;
 }
 
 .footer ul {
   list-style: none;
-  text-align: left;
 }
 
 .footer li {
@@ -687,7 +691,7 @@ main .content h1 {
   color: #5300a0;
 }
 .footer-credits {
-  width: 100%;
+  width: 100% ;
   text-align: center;
   margin-top: 30px;
   margin-bottom: -20px;
@@ -710,6 +714,7 @@ main .content h1 {
 
   .footer-container {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 }
