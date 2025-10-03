@@ -35,7 +35,7 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
   const parameter = document.getElementById("parameter").value;
   const resultBox = document.getElementById("result");
 
-  resultBox.innerHTML = "Fetching data...";
+  resultBox.innerHTML = "Fetching data... Please wait.";
 
   try {
     // Geocode
@@ -62,10 +62,16 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
 
 
     const value = nasaData.properties.parameter[parameter][date.replace(/-/g,"")];
-    resultBox.innerHTML = `<strong>${parameter}</strong> on ${date} at ${location}: <br> <span style="color:#9c5ad1">${value}</span>`;
+
+     const icon = parameter.toLowerCase().includes("rain") ? "🌧️" :
+      parameter.toLowerCase().includes("temp") ? "☀️" : "📊";
+
+    resultBox.innerHTML = `<strong>${parameter}</strong> on ${date} at ${location}: <br> <span style="color:#9c5ad1">${value} ${icon}</span>`;
     
+    updateVisualization(lat, lon, parameter, [date], [value]);
+
   } catch(err) {
-    resultBox.innerHTML = "Error: " + err.message;
+    resultBox.innerHTML = `<span style="color:red;">❌ Error: ${err.message}</span>`;
   }
 });
 
@@ -112,9 +118,13 @@ function updateVisualization(lat, lon, chartType, labels, data) {
   chart.data.labels = labels;
   chart.data.datasets[0].data = data;
   chart.data.datasets[0].label =
-    chartType === "rain" ? "Rainfall Probability" :
+  /*  chartType === "rain" ? "Rainfall Probability" :
     chartType === "temp" ? "Temperature Variation" :
     "Trends Over Years";
+  chart.update();*/
+  chartType.toLowerCase().includes("rain") ? "Rainfall Probability" :
+      chartType.toLowerCase().includes("temp") ? "Temperature Variation" :
+        "Trends Over Years";
   chart.update();
 }
 
