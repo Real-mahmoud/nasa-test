@@ -107,7 +107,9 @@ header {
     align-items: center;
     padding: 1rem 5rem;
     position: relative;
+  
 }
+
 header::after {
   content: "";
   position: absolute;
@@ -307,7 +309,7 @@ main .content h1 {
     }
     main .content {
         margin-top: -2rem;
-        margin-left: 3rem;
+        margin-left: 1.5rem;
         max-width: 30rem;
     }
     main .content h1 {
@@ -703,7 +705,7 @@ main .content h1 {
 @media (max-width: 768px) {
   .why-container {
     flex-direction: column;
-    text-align: center;
+    text-align:center;
   }
 
   .footer-container {
@@ -711,10 +713,6 @@ main .content h1 {
     text-align: center;
   }
 }
-
-
-
-
 
 
 
@@ -758,4 +756,5 @@ main .content h1 {
 .insight-card p {
   font-size: 1rem;
   color: #ccc;
+
 }
