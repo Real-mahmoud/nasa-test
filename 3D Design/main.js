@@ -29,9 +29,7 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
 
   const location = document.getElementById("location").value;
   const date = document.getElementById("date").value;
-  const parameter = document.getElementById("parameter").value;
-  console.log(parameter);
-  
+  const parameter = document.getElementById("parameter").value;  
   const resultBox = document.getElementById("result");
   
   // get input year to use it in visualization
@@ -80,8 +78,7 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
     animateNumbers()
 
     let unit=nasaData.parameters[parameter].units;
-    console.log(unit);
-    
+
     const icon = parameter.includes("WS10M") ? "🌪️" :
     parameter.includes("T2M") ? "☀️" : "🌧️";
     
@@ -150,7 +147,6 @@ const animateNumbers = () => {
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(entry.isIntersecting){
-      animateNumbers();
       observer.disconnect(); // run once
     }
   });

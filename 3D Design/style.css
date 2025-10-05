@@ -553,6 +553,7 @@ main .content h1 {
   width: 300px;
   margin: 0 auto;
   display: none;
+  margin-bottom: 30px;
 }
 #see-visualization:hover {
   background-color: #5300a0;
