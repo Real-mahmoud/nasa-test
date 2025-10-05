@@ -30,7 +30,12 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
   const location = document.getElementById("location").value;
   const date = document.getElementById("date").value;
   const parameter = document.getElementById("parameter").value;
+  console.log(parameter);
+  
   const resultBox = document.getElementById("result");
+  
+  // get input year to use it in visualization
+  let dataAsYear=new Date(date).getFullYear()
 
   resultBox.innerHTML = "Fetching data... Please wait.";
 
@@ -38,18 +43,25 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
     // Geocode
     const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
     const geoData = await geoRes.json();
-    console.log(geoRes);
-    console.log(geoData);
     
     if(!geoData.length) throw new Error("Location not found");
     const lat = geoData[0].lat;
     const lon = geoData[0].lon;
 
     // NASA POWER
-    const nasaRes = await fetch(`https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CWS2M%2CPRECTOTCORR&community=RE&longitude=${lon}&latitude=${lat}&start=${date.replace(/-/g,"")}&end=${date.replace(/-/g,"")}&format=JSON`);
+    const nasaRes = await fetch(`https://power.larc.nasa.gov/api/projection/daily/point?start=${date.replace(/-/g,"")}&end=${date.replace(/-/g,"")}&latitude=${lat}&longitude=${lon}&community=ag&parameters=T2M%2CPRECTOTCORR%2CWS10M&format=json&header=true`);                 
     const nasaData = await nasaRes.json();
-    console.log(nasaRes);
-    console.log(nasaData);
+
+    // set iframe with nasa visualization from 10 years before input year to the input year
+    let visualizationBox=document.querySelector(".nasa-visualization-box")
+    visualizationBox.style.display="flex";
+    let iframe=document.querySelector("iframe")
+    iframe.src=`https://power.larc.nasa.gov/api/projection/visualization/line?start=${dataAsYear-5}&end=${dataAsYear}&latitude=${lat}&longitude=${lon}&parameter=tmax_annave`;
+    
+    // set see visualization data for small screens 
+    let visBtn=document.querySelector("#see-visualization");
+    visBtn.href=`https://power.larc.nasa.gov/api/projection/visualization/line?start=${dataAsYear-5}&end=${dataAsYear}&latitude=${lat}&longitude=${lon}&parameter=tmax_annave`;
+    
 
     const value = nasaData.properties.parameter[parameter][date.replace(/-/g,"")];
 
@@ -60,8 +72,9 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
 
     // avg temp insight 
     counters[1].setAttribute("data-target",nasaData.properties.parameter["T2M"][date.replace(/-/g,"")] + "");
+    
     // wind insight 
-    counters[2].setAttribute("data-target",nasaData.properties.parameter["WS2M"][date.replace(/-/g,"")] + "");
+    counters[2].setAttribute("data-target",nasaData.properties.parameter["WS10M"][date.replace(/-/g,"")] + "");
 
     // to make it count up from 0 to value
     animateNumbers()
@@ -69,7 +82,7 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
     let unit=nasaData.parameters[parameter].units;
     console.log(unit);
     
-    const icon = parameter.includes("WS2M") ? "📊" :
+    const icon = parameter.includes("WS10M") ? "🌪️" :
     parameter.includes("T2M") ? "☀️" : "🌧️";
     
     resultBox.innerHTML = `<strong>${parameter}</strong> on ${date} at ${location}: <br> <span style="color:#9c5ad1">${value} ${unit} ${icon}</span>`;
@@ -84,12 +97,10 @@ document.getElementById("dataForm").addEventListener("submit", async function(e)
 
         const type = btn.dataset.chart;
         if(type === "rain"){
-          updateVisualization(lat, lon,"rain",["min",date,"max"],[0,Math.ceil((PRECTOTCORR / max) * 100),max]);
-        } else if(type === "temp"){
-          updateVisualization(lat, lon,"temp",["Morning","Noon","Night"],[18,30,22]);
-        } else {
-          updateVisualization(lat, lon,"trend",["2021","2022","2023"],[25,27,26]);
-        }
+          updateVisualization(lat, lon);
+        } else{
+          updateVisualization(lat, lon);
+        } 
       });
     });
 
@@ -106,45 +117,14 @@ L.tileLayer('https://api.maptiler.com/maps/streets-v2/{z}/{x}/{y}.png?key=5ss5yF
 }).addTo(map);
 let marker;
 
-// Initialize Chart.js
-const ctx = document.getElementById('vizChart').getContext('2d');
-let chart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: [],
-    datasets: [{
-      label: 'Rainfall Probability',
-      data: [],
-      borderColor: '#9c5ad1',
-      backgroundColor: ['rgba(156,90,209,0.3)' ,'rgba(156,90,209,0.3)','rgba(169, 43, 43, 1)'],
-      fill: true,
-      tension: 0.4
-    }]
-  },
-  options: {
-    responsive: true,
-    scales: {
-      x: { title: { display: true, text: 'Date' }},
-      y: { title: { display: true, text: 'Value' }}
-    }
-  }
-});
 
 // Function to update map & chart
-function updateVisualization(lat, lon, chartType, labels, data) {
+function updateVisualization(lat, lon) {
   // Map update
   map.setView([lat, lon], 13);
   if(marker) marker.remove();
   marker = L.marker([lat, lon]).addTo(map);
 
-  // Chart update
-  chart.data.labels = labels;
-  chart.data.datasets[0].data = data;
-  chart.data.datasets[0].label =
-  chartType.toLowerCase().includes("rain") ? "Rainfall Probability" :
-      chartType.toLowerCase().includes("temp") ? "Temperature Variation" :
-        "Trends Over Years";
-  chart.update();
 }
 
 

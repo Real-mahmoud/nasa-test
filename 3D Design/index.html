@@ -57,8 +57,8 @@
               <h1>Will it Rain <br> on My Parade?</h1>
               <p class="description">Discover how climate data helps predict the chance of rain on important days.</p>
               <div class="buttons">
-                  <a href="cairo_weather_2020_2028.csv" class="btn-get-started">Download Data </a>
-                  <a href="#climate" class="btn-signing-main">Get Started </a>
+                  <a href="https://power.larc.nasa.gov/api/projection/daily/point?start=20200312&end=20300312&latitude=30&longitude=31&community=ag&parameters=T2M%2CTmax%2CTmin%2CPRECTOTCORR&format=csv&header=true" class="btn-download-data">Download Data </a>
+                  <a href="#climate" class="btn-get-started">Get Started </a>
               </div>
           </div>
       </main>
@@ -124,6 +124,7 @@
   </div>
 </section>
 
+<!-- get data section  -->
 <section class="data-input " id="climate">
   <div class="input-container">
     <div class="card">
@@ -134,7 +135,7 @@
           <select id="parameter" required>
               <option value="T2M">Temperature</option>
               <option value="PRECTOTCORR">Rainfall</option>
-              <option value="WS2M">Wind</option>
+              <option value="WS10M">Wind</option>
           </select>
           <button type="submit">Fetch Data</button>
           </form>
@@ -144,33 +145,34 @@
     <div class="hints">
       <h2><strong>HINTS</strong></h2>
       <h4><strong>T2M</strong> &rArr; Temperature at 2 meters 🌡️</h4>
-      <h4><strong>WS2M</strong> &rArr; Wind Speed at 2 meters 💨</h4>
+      <h4><strong>WS10M</strong> &rArr; Wind Speed at 10 meters 💨</h4>
       <h4><strong>PRECTOTCORR</strong> &rArr; Corrected Total Precipitation 🌧️</h4>
     </div>
   </div>
 </section>
 
 <section id="visualization" class="visualization">
-  
-  <h2>Visualization</h2>
-  <div class="viz-container">
-    <img class="img-gradiant" src="images/gradient.png" alt="">
-    <div class="layer-blur"></div>
-    <!-- Map -->
-    <div id="map"></div>
 
-    <!-- Chart -->
-    <div class="chart-box">
-      <div class="chart-tabs">
-        <button class="tab-btn active" data-chart="rain">Rainfall Probability</button>
-        <button class="tab-btn" data-chart="temp">Temperature Variation</button>
-        <button class="tab-btn" data-chart="trend">Trends Over Years</button>
-      </div>
-      <canvas id="vizChart"></canvas>
+  <img class="img-gradiant" src="images/gradient.png" alt="">
+  <div class="layer-blur"></div>
+  <div class="viz-container">
+    
+    <!-- Map -->
+    <div class="map-vis-box">
+      <h2>Visualization</h2>
+      <div id="map"></div>
+    </div>
+    <!-- NASA Visualization Embed -->
+    <div class="nasa-visualization-box">
+      <h3>NASA Data Visualization</h3>
+      
+      <iframe src=""></iframe>
+      <a href="" id="see-visualization" target="_blank"> See Visualization</a>
     </div>
   </div>
 </section>
 
+<!-- insight and result section  -->
 <section id="insights" class="insights">
   <h2>Insights & Results</h2>
   <div class="insights-container">
@@ -200,7 +202,7 @@
 </section>
 
 
-<!-- 7. Why It Matters -->
+<!-- Why It Matters -->
 <section id="why-it-matters" class="why-it-matters">
   <img class="img-gradiant" src="images/gradient.png" alt="">
     <div class="layer-blur"></div>
@@ -229,7 +231,7 @@
   </div>
 </section>
 
-<!-- 8. Footer -->
+<!--Footer -->
 <footer class="footer">
   <div class="footer-container">
     
